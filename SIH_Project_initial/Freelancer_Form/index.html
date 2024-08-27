@@ -1,0 +1,137 @@
+HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BharatFreelance Hub</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="logo.png" alt="BharatFreelance Hub Logo" class="logo">
+            <div class="header-text">
+                <h1>BharatFreelance Hub</h1>
+                <h3>Welcome to Family</h3>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="form-container">
+            <form id="bioDataForm">
+                <h2>Bio Data</h2>
+
+                <!-- Image Upload Section -->
+                <div class="image-upload">
+                    <div id="uploadSection">
+                        <label for="profileImage" class="image-upload-label">
+                            <span>Upload Profile Image</span>
+                            <input id="profileImage" type="file" accept="image/*">
+                        </label>
+                    </div>
+                    <div id="imagePreviewContainer" class="image-preview">
+                        <!-- Image preview will be shown here -->
+                    </div>
+                    <button id="changeImageButton" class="hidden">Change Image</button>
+                </div>
+
+                <fieldset>
+                    <legend>Personal Information</legend>
+                    <label for="firstname">First Name:</label>
+                    <input id="firstname" type="text" placeholder="First Name" required>
+
+                    <label for="lastname">Last Name:</label>
+                    <input id="lastname" type="text" placeholder="Last Name" required>
+
+                    <label>Gender:</label>
+                    <div class="radio-group">
+                        <label for="male">
+                            <input id="male" type="radio" name="gender" value="male">
+                            Male
+                        </label>
+                        <label for="female">
+                            <input id="female" type="radio" name="gender" value="female">
+                            Female
+                        </label>
+                        <label for="other">
+                            <input id="other" type="radio" name="gender" value="other">
+                            Other
+                        </label>
+                    </div>
+
+                    <label for="dob">Date of Birth:</label>
+                    <input id="dob" type="date" required>
+
+                    <label for="email">Email:</label>
+                    <input id="email" type="email" placeholder="example@example.com" required>
+
+                    <label for="phone">Phone:</label>
+                    <input id="phone" type="tel" pattern="[0-9]{10}" placeholder="1234567890" required>
+
+                    <label for="designation">Designation:</label>
+                    <input id="designation" type="text" placeholder="Your Designation" required>
+
+                    <label for="hourlyRate">Hourly Rate:</label>
+                    <input id="hourlyRate" type="number" step="0.01" placeholder="Hourly Rate" required>
+
+                    <label for="projectRate">Project-Based Rate:</label>
+                    <input id="projectRate" type="number" step="0.01" placeholder="Project-Based Rate" required>
+
+                    <label for="skills">Skills:</label>
+                    <input id="skills" type="text" placeholder="e.g., JavaScript, HTML, CSS" required>
+
+                    <label for="inputBox">About Me:</label>
+                    <textarea id="inputBox" placeholder="Enter your details here..." maxlength="100"></textarea>
+                    <p id="warning" class="warning"></p>
+                </fieldset>
+
+                <fieldset id="projectsFieldset">
+                    <legend>Projects</legend>
+                    <div id="projectsContainer">
+                        <!-- Initial project input fields go here -->
+                    </div>
+                    <button type="button" id="addProjectButton">Add Another Project</button>
+                </fieldset>
+
+                <fieldset id="experienceFieldset">
+                    <legend>Experience</legend>
+                    <div id="experienceContainer">
+                        <!-- Initial experience input fields go here -->
+                    </div>
+                    <button type="button" id="addExperienceButton">Add Another Experience</button>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Social Media Links</legend>
+                    <label for="linkedin">LinkedIn:</label>
+                    <input id="linkedin" type="url" placeholder="https://www.linkedin.com/in/username">
+
+                    <label for="twitter">Twitter:</label>
+                    <input id="twitter" type="url" placeholder="https://twitter.com/username">
+
+                    <label for="github">GitHub:</label>
+                    <input id="github" type="url" placeholder="https://github.com/username">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Verification</legend>
+                    <label for="txtAadhaar">Aadhaar Number:</label>
+                    <input type="text" id="txtAadhaar" placeholder="Enter Aadhaar Number" required>
+                    <span id="lblError" class="error"></span>
+                </fieldset>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 BharatFreelance Hub. All rights reserved.</p>
+            <p><a href="#" class="footer-link">Privacy Policy</a></p>
+        </div>
+    </footer>
+    <script src="./script.js"></script>
+</body>
+</html>
