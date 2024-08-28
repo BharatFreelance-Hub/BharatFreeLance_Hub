@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BharatFreeLance Hub</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./style_client_homepage.css" />
+    <style>
+      /* Floating button */
+      .floating-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #ff5100;
+        color: white;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        z-index: 1000;
+        cursor: pointer;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Nav bar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-orange">
+        <a class="navbar-brand" href="#">BharatFreeLance Hub</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#home"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projects">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#experience">Experience</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#rates">Rates</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#reviews">Reviews</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    <!-- Banner Section -->
+    <div class="banner">
+      <h1>Welcome to BharatFreeLance Hub</h1>
+      <p>Find your next project or hire the perfect freelancer.</p>
+    </div>
+ 
+    <div class="container-fluid ">
+     
+      <!-- Job Listings Section -->
+      <div class="job-listings-section ">
+        <h2>Post a Job</h2>
+
+        <!-- Job Listing 1 -->
+        <div class="job-listing" data-type="hourly-rate" data-listing="urgent">
+          <h3>Web Developer Needed</h3>
+          <p><strong>Project Type:</strong> Hourly Rate</p>
+          <p><strong>Skills:</strong> JavaScript, HTML, CSS</p>
+          <p><strong>Listing Type:</strong> Urgent</p>
+          <p><strong>Languages</strong> Punjabi</p>
+          <p>We are looking for a skilled web developer to join our team...</p>
+          <button class="btn btn-primary">See Details</button>
+        </div>
+
+        <!-- Job Listing 2 -->
+        <div class="job-listing" data-type="fixed-rate" data-listing="nda">
+          <h3>Graphic Designer Required</h3>
+          <p><strong>Project Type:</strong> Fixed Rate</p>
+          <p><strong>Skills:</strong> Photoshop, Illustrator</p>
+          <p><strong>Listing Type:</strong> NDA</p>
+          <p><strong>Languages</strong> English</p>
+          <p>Seeking a creative graphic designer with experience in branding...</p>
+          <button class="btn btn-primary">See Details</button>
+        </div>
+
+        <!-- Job Listing 3 -->
+        <div class="job-listing" data-type="hourly-rate" data-listing="month-based">
+          <h3>Content Writer Wanted</h3>
+          <p><strong>Project Type:</strong> Hourly Rate</p>
+          <p><strong>Skills:</strong> Copywriting, SEO</p>
+          <p><strong>Listing Type:</strong> Month Based</p>
+          <p><strong>Languages</strong> Hindi</p>
+          <p>Looking for an experienced content writer for ongoing projects...</p>
+          <button class="btn btn-primary">See Details</button>
+        </div>
+
+        <!-- Add more job listings here -->
+      </div>
+    </div>
+
+    <!-- Floating Button -->
+    <div class="floating-button" data-toggle="modal" data-target="#addJobModal">
+      +
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addJobModal" tabindex="-1" role="dialog" aria-labelledby="addJobModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addJobModalLabel">Add Job Listing</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="jobForm">
+              <div class="form-group">
+                <label for="jobTitle">Job Title</label>
+                <input type="text" class="form-control" id="jobTitle" required>
+              </div>
+              <div class="form-group">
+                <label for="projectType">Project Type</label>
+                <select class="form-control" id="projectType" required>
+                  <option value="hourly-rate">Hourly Rate</option>
+                  <option value="fixed-rate">Fixed Rate</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="skills">Skills</label>
+                <input type="text" class="form-control" id="skills" required>
+              </div>
+              <div class="form-group">
+                <label for="listingType">Listing Type</label>
+                <select class="form-control" id="listingType" required>
+                  <option value="urgent">Urgent</option>
+                  <option value="nda">NDA</option>
+                  <option value="month-based">Month Based</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="Language">Language</label>
+                <select class="form-control" id="Language" required>
+                  <option value="Hindi">Hindi</option>
+                  <option value="English">English</option>
+                  <option value="Punjabi">Punjabi</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" rows="3" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Add Job</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container text-center">
+        <p>&copy; 2023 BharatFreeLance Hub. All rights reserved.</p>
+        <p><a href="#">Privacy Policy</a></p>
+      </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Add Job Script -->
+    <script>
+      document.getElementById("jobForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent the form from submitting in the traditional way
+
+        // Get form values
+        const jobTitle = document.getElementById("jobTitle").value;
+        const projectType = document.getElementById("projectType").value;
+        const skills = document.getElementById("skills").value;
+        const listingType = document.getElementById("listingType").value;
+        const Language= document.getElementById("Language").value;
+        const description = document.getElementById("description").value;
+
+        // Create a new job listing card
+        const newJobListing = `
+          <div class="job-listing" data-type="${projectType}" data-listing="${listingType}">
+            <h3>${jobTitle}</h3>
+            <p><strong>Project Type:</strong> ${projectType.replace("-", " ")}</p>
+            <p><strong>Skills:</strong> ${skills}</p>
+            <p><strong>Listing Type:</strong> ${listingType.replace("-", " ")}</p>
+            <P><strong>Language:<?strong> ${Language.replace("-"," ")}</p>
+            <p>${description}</p>
+            <button class="btn btn-primary">See details</button>
+          </div>
+        `;
+
+        // Add the new job listing to the job listings section
+        document.querySelector(".job-listings-section").innerHTML += newJobListing;
+
+        // Clear the form
+        document.getElementById("jobForm").reset();
+
+        // Close the modal
+        $('#addJobModal').modal('hide');
+      });
+    </script>
+  </body>
+</html>
