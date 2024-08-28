@@ -99,9 +99,17 @@ freelancerBioDataForm.addEventListener('submit', async (e) => {
   try {
     // Save the data to the 'freelancer' collection
     await setDoc(doc(db, "freelancer", auth.currentUser.uid), freelancerData);
-    alert('Freelancer details saved successfully');
-    // Optionally redirect to another page
-    // window.location.href = 'freelancer_homepage.html';
+    
+    // Show a confirmation dialog after successful save
+    const userResponse = confirm('Freelancer details saved successfully! Do you want to view your portfolio?');
+    
+    if (userResponse) {
+      // Redirect to Freelancer portfolio page if confirmed
+      window.location.href = 'Freelancer portfolio.html';
+    } else {
+      // Redirect to front page (index.html) if cancelled
+      window.location.href = '../main/index.html';
+    }
   } catch (error) {
     console.error("Error saving document: ", error);
     document.getElementById('lblError').innerText = "Failed to save freelancer details. Please try again.";
