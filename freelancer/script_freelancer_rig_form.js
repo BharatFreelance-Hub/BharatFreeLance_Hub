@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Form submission event handler
-    document.getElementById('bioDataForm').addEventListener('submit', function(event) {
+    document.getElementById('freelance_bioDataForm').addEventListener('submit', function(event) {
         // Validate Aadhaar, Phone Number, and additional fields
         if (!ValidateAadhaar() || !validatePhoneNumber() || !validateAdditionalFields()) {
             event.preventDefault(); // Prevent form submission if validation fails
