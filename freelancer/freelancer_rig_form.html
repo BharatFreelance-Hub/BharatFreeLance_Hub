@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BharatFreelance Hub</title>
     <link rel="stylesheet" href="./style_freelancer_rig_form.css">
+    <script type="module" src="./freelancer_rig_firebase.js"></script>
 </head>
 <body>
     <header>
@@ -85,18 +86,37 @@
                     <p id="warning" class="warning"></p>
                 </fieldset>
 
+                <!-- Projects Section -->
                 <fieldset id="projectsFieldset">
                     <legend>Projects</legend>
                     <div id="projectsContainer">
-                        <!-- Initial project input fields go here -->
+                        <!-- Project 1 -->
+                        <div class="project">
+                            <label for="projectTitle0">Project Title:</label>
+                            <input id="projectTitle0" type="text" placeholder="Project Title">
+
+                            <label for="projectDescription0">Project Description:</label>
+                            <textarea id="projectDescription0" placeholder="Describe your project..."></textarea>
+                        </div>
                     </div>
                     <button type="button" id="addProjectButton">Add Another Project</button>
                 </fieldset>
 
+                <!-- Experience Section -->
                 <fieldset id="experienceFieldset">
                     <legend>Experience</legend>
                     <div id="experienceContainer">
-                        <!-- Initial experience input fields go here -->
+                        <!-- Experience 1 -->
+                        <div class="experience">
+                            <label for="company0">Company:</label>
+                            <input id="company0" type="text" placeholder="Company Name">
+
+                            <label for="role0">Role:</label>
+                            <input id="role0" type="text" placeholder="Your Role">
+
+                            <label for="duration0">Duration:</label>
+                            <input id="duration0" type="text" placeholder="Duration (e.g., 2 years)">
+                        </div>
                     </div>
                     <button type="button" id="addExperienceButton">Add Another Experience</button>
                 </fieldset>

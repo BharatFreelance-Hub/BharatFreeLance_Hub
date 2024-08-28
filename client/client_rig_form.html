@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BharatFreelance Hub</title>
     <link rel="stylesheet" href="./style_client_rig_form.css">
+    <script type="module" src="./client_rig_firebase.js"></script>
 </head>
 <body>
     <header>
@@ -20,7 +21,7 @@
         <div class="form-container">
             <form id="bioDataForm">
                 <h2>Registration Form</h2>
-
+            
                 <!-- Image Upload Section -->
                 <div class="image-upload">
                     <div id="uploadSection">
@@ -34,34 +35,34 @@
                     </div>
                     <button id="changeImageButton" class="hidden">Change Image</button>
                 </div>
-
+            
                 <fieldset id="informationFieldset">
                     <legend>Information</legend>
                     <label for="name">Name:</label>
                     <input id="name" type="text" placeholder="Full Name" required>
-
+            
                     <label for="basedOn">Based On:</label>
                     <input id="basedOn" type="text" placeholder="Location/City" required>
-
+            
                     <label for="aboutUs">About Us:</label>
                     <textarea id="aboutUs" placeholder="Tell us about yourself or your business..." maxlength="100" required></textarea>
-
+            
                     <label for="email">Email:</label>
                     <input id="email" type="email" placeholder="example@example.com" required>
-
+            
                     <label for="website">Website (Optional):</label>
                     <input id="website" type="url" placeholder="https://yourwebsite.com">
                 </fieldset>
-
+            
                 <fieldset>
                     <legend>Social Media Links</legend>
                     <label for="linkedin">LinkedIn:</label>
                     <input id="linkedin" type="url" placeholder="https://www.linkedin.com/in/username">
-
+            
                     <label for="twitter">Twitter:</label>
                     <input id="twitter" type="url" placeholder="https://twitter.com/username">
                 </fieldset>
-
+            
                 <fieldset>
                     <legend>Verification</legend>
                     <label for="aadhaarNumber">Aadhaar Number:</label>
@@ -69,10 +70,10 @@
                     <br><label class="option">OR</label>
                     <label for="gstinNumber">GSTIN Number:</label>
                     <input id="gstinNumber" type="text" placeholder="Enter GSTIN Number">
-
+            
                     <span id="verificationError" class="error"></span>
                 </fieldset>
-
+            
                 <button type="submit">Submit</button>
             </form>
         </div>
