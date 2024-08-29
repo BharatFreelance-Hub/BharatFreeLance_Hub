@@ -69,7 +69,7 @@ bioDataForm.addEventListener('submit', async (e) => {
     await setDoc(doc(db, "users", auth.currentUser.uid), clientData);
     alert('Client details saved successfully');
     // Redirect to Client_Portfolio.html after successful save
-    window.location.href = './Client_Portfolio.html';
+    window.location.href = './client_homepage.html';
   } catch (error) {
     console.error("Error saving document: ", error);
     document.getElementById('verificationError').innerText = "Failed to save client details. Please try again.";

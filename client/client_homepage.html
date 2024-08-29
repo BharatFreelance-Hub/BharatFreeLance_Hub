@@ -48,21 +48,15 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#home"
+              <a class="nav-link" href="./client_homepage.html"
                 >Home <span class="sr-only">(current)</span></a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#projects">Projects</a>
+              <a class="nav-link" href="#postjob">Post a Job</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#experience">Experience</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#rates">Rates</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#reviews">Reviews</a>
+              <a class="nav-link" href="#about">aboutUs</a>
             </li>
           </ul>
         </div>
@@ -77,7 +71,7 @@
     <div class="container-fluid ">
      
       <!-- Job Listings Section -->
-      <div class="job-listings-section ">
+      <div class="job-listings-section " id="postjob">
         <h2>Post a Job</h2>
 
         <!-- Job Listing 1 -->
@@ -88,7 +82,7 @@
           <p><strong>Listing Type:</strong> Urgent</p>
           <p><strong>Languages</strong> Punjabi</p>
           <p>We are looking for a skilled web developer to join our team...</p>
-          <button class="btn btn-primary">See Details</button>
+          <a href="../freelance_client_both/both.html" class="btn btn-primary">See Details</a>
         </div>
 
         <!-- Job Listing 2 -->
@@ -99,7 +93,7 @@
           <p><strong>Listing Type:</strong> NDA</p>
           <p><strong>Languages</strong> English</p>
           <p>Seeking a creative graphic designer with experience in branding...</p>
-          <button class="btn btn-primary">See Details</button>
+          <a href="../freelance_client_both/both.html" class="btn btn-primary">See Details</a>
         </div>
 
         <!-- Job Listing 3 -->
@@ -110,7 +104,7 @@
           <p><strong>Listing Type:</strong> Month Based</p>
           <p><strong>Languages</strong> Hindi</p>
           <p>Looking for an experienced content writer for ongoing projects...</p>
-          <button class="btn btn-primary">See Details</button>
+          <a href="../freelance_client_both/both.html" class="btn btn-primary">See Details</a>
         </div>
 
         <!-- Add more job listings here -->
@@ -211,7 +205,7 @@
             <p><strong>Listing Type:</strong> ${listingType.replace("-", " ")}</p>
             <P><strong>Language:<?strong> ${Language.replace("-"," ")}</p>
             <p>${description}</p>
-            <button class="btn btn-primary">See details</button>
+            <a href="../freelance_client_both/both.html" class="btn btn-primary">See details</a>
           </div>
         `;
 

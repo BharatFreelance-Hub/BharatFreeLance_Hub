@@ -98,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
         projectsContainer.appendChild(projectDiv);
     }
 
+
     // Function to add new experience fields
     function addExperienceFields() {
         const experienceContainer = document.getElementById('experienceContainer');
