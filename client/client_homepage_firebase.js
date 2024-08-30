@@ -26,12 +26,12 @@ jobForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   // Collect form data
-  const jobTitle = document.getElementById('jobTitle').value;
-  const projectType = document.getElementById('projectType').value;
-  const skills = document.getElementById('skills').value;
-  const listingType = document.getElementById('listingType').value;
-  const Language = document.getElementById('Language').value;
-  const description = document.getElementById('description').value;
+  const jobTitle = document.getElementById('jobTitle').value.trim();
+  const projectType = document.getElementById('projectType').value.trim();
+  const skills = document.getElementById('skills').value.trim();
+  const listingType = document.getElementById('listingType').value.trim();
+  const language = document.getElementById('Language').value.trim();
+  const description = document.getElementById('description').value.trim();
 
   // Ensure the user is authenticated
   const user = auth.currentUser;
@@ -46,18 +46,22 @@ jobForm.addEventListener('submit', async (e) => {
     projectType,
     skills,
     listingType,
-    Language,
+    language,
     description,
     postedBy: user.uid, // Store the user ID of the client who posted the job
     createdAt: new Date() // Add a timestamp for when the job was posted
   };
-  console.log(jobData);
+
   try {
     // Save the job posting data to the 'jobs' collection with a unique ID
     const docId = `${user.uid}_${Date.now()}`;
     await setDoc(doc(db, "jobs", docId), jobData);
     alert('Job posted successfully');
-    // Optionally, redirect or close modal after successful save
+
+    // Optionally, add the job to the page dynamically
+    addJobToPage(jobData);
+
+    // Close modal and reset form after successful save
     $('#addJobModal').modal('hide');
     jobForm.reset();
   } catch (error) {
@@ -65,3 +69,21 @@ jobForm.addEventListener('submit', async (e) => {
     alert("Failed to post job. Please try again.");
   }
 });
+
+// Function to add a job posting to the page dynamically
+function addJobToPage(jobData) {
+  const jobListingSection = document.querySelector(".job-listings-section");
+  const newJobListing = `
+    <div class="job-listing" data-type="${jobData.projectType}" data-listing="${jobData.listingType}">
+      <h3>${jobData.jobTitle}</h3>
+      <p><strong>Project Type:</strong> ${jobData.projectType.replace("-", " ")}</p>
+      <p><strong>Skills:</strong> ${jobData.skills}</p>
+      <p><strong>Listing Type:</strong> ${jobData.listingType.replace("-", " ")}</p>
+      <p><strong>Language:</strong> ${jobData.language}</p>
+      <p>${jobData.description}</p>
+      <a href="../freelance_client_both/both.html" class="btn btn-primary">See Details</a>
+    </div>
+  `;
+
+  jobListingSection.innerHTML += newJobListing;
+}

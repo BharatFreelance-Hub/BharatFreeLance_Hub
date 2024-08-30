@@ -72,41 +72,6 @@
     <!-- Job Listings Section -->
     <div class="job-listings-section" id="postjob">
       <h2>Post a Job</h2>
-
-      <!-- Job Listing 1 -->
-      <div class="job-listing" data-type="hourly-rate" data-listing="urgent">
-        <h3>Web Developer Needed</h3>
-        <p><strong>Project Type:</strong> Hourly Rate</p>
-        <p><strong>Skills:</strong> JavaScript, HTML, CSS</p>
-        <p><strong>Listing Type:</strong> Urgent</p>
-        <p><strong>Languages:</strong> Punjabi</p>
-        <p>We are looking for a skilled web developer to join our team...</p>
-        <a href="../freelance_client_both/both.html" class="btn btn-primary">See Details</a>
-      </div>
-
-      <!-- Job Listing 2 -->
-      <div class="job-listing" data-type="fixed-rate" data-listing="nda">
-        <h3>Graphic Designer Required</h3>
-        <p><strong>Project Type:</strong> Fixed Rate</p>
-        <p><strong>Skills:</strong> Photoshop, Illustrator</p>
-        <p><strong>Listing Type:</strong> NDA</p>
-        <p><strong>Languages:</strong> English</p>
-        <p>Seeking a creative graphic designer with experience in branding...</p>
-        <a href="../freelance_client_both/both.html" class="btn btn-primary">See Details</a>
-      </div>
-
-      <!-- Job Listing 3 -->
-      <div class="job-listing" data-type="hourly-rate" data-listing="month-based">
-        <h3>Content Writer Wanted</h3>
-        <p><strong>Project Type:</strong> Hourly Rate</p>
-        <p><strong>Skills:</strong> Copywriting, SEO</p>
-        <p><strong>Listing Type:</strong> Month Based</p>
-        <p><strong>Languages:</strong> Hindi</p>
-        <p>Looking for an experienced content writer for ongoing projects...</p>
-        <a href="../freelance_client_both/both.html" class="btn btn-primary">See Details</a>
-      </div>
-
-      <!-- Add more job listings here -->
     </div>
   </div>
 
@@ -177,48 +142,10 @@
     </div>
   </footer>
 
-  <!-- Your existing scripts -->
+  <!-- Firebase and JavaScript -->
+   <script type="module" src="./client_homepage_firebase.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  <script>
-    document.getElementById("jobForm").addEventListener("submit", function (event) {
-      event.preventDefault(); // Prevent the form from submitting in the traditional way
-
-      // Get form values
-      const jobTitle = document.getElementById("jobTitle").value;
-      const projectType = document.getElementById("projectType").value;
-      const skills = document.getElementById("skills").value;
-      const listingType = document.getElementById("listingType").value;
-      const Language= document.getElementById("Language").value;
-      const description = document.getElementById("description").value;
-
-      // Create a new job listing card
-      const newJobListing = `
-        <div class="job-listing" data-type="${projectType}" data-listing="${listingType}">
-          <h3>${jobTitle}</h3>
-          <p><strong>Project Type:</strong> ${projectType.replace("-", " ")}</p>
-          <p><strong>Skills:</strong> ${skills}</p>
-          <p><strong>Listing Type:</strong> ${listingType.replace("-", " ")}</p>
-          <P><strong>Language:<?strong> ${Language.replace("-"," ")}</p>
-          <p>${description}</p>
-          <a href="../freelance_client_both/both.html" class="btn btn-primary">See details</a>
-        </div>
-      `;
-
-      // Add the new job listing to the job listings section
-      document.querySelector(".job-listings-section").innerHTML += newJobListing;
-
-      // Clear the form
-      document.getElementById("jobForm").reset();
-
-      // Close the modal
-      $('#addJobModal').modal('hide');
-    });
-  </script>
-
-  <!-- Include external JS file -->
-  <script type="module" src="./client_homepage_firebase.js"></script>
 </body>
 </html>
