@@ -1,4 +1,3 @@
-// Import necessary Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
@@ -9,7 +8,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyChL4PXmR5RHmNnlVc6PiocbEsq3ygpD3E",
   authDomain: "bharatfreelance-hub-538c2.firebaseapp.com",
   projectId: "bharatfreelance-hub-538c2",
-  storageBucket: "bharatfreelance-hub-538c2",
+  storageBucket: "bharatfreelance-hub-538c2.appspot.com",
   messagingSenderId: "297970426246",
   appId: "1:297970426246:web:fc266f818611f1c14a8c07"
 };
@@ -49,9 +48,15 @@ freelancerBioDataForm.addEventListener('submit', async (e) => {
   let profileImageUrl = '';
 
   if (profileImageFile) {
-    const storageRef = ref(storage, `profile_images/${auth.currentUser.uid}/${profileImageFile.name}`);
-    await uploadBytes(storageRef, profileImageFile);
-    profileImageUrl = await getDownloadURL(storageRef);
+    const storageRef = ref(storage, `Free_profile_images/${auth.currentUser.uid}/${profileImageFile.name}`);
+    try {
+      await uploadBytes(storageRef, profileImageFile);
+      profileImageUrl = await getDownloadURL(storageRef);
+    } catch (error) {
+      console.error("Error uploading file: ", error);
+      document.getElementById('lblError').innerText = "Failed to upload profile image. Please try again.";
+      return;
+    }
   }
 
   // Prepare project and experience data

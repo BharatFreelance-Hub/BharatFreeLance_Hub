@@ -86,40 +86,41 @@ document.addEventListener('DOMContentLoaded', function() {
         const projectsContainer = document.getElementById('projectsContainer');
 
         const projectDiv = document.createElement('div');
-        projectDiv.classList.add('project-input');
+        projectDiv.classList.add('project');
+        const index = projectsContainer.children.length; // Get the index of new project
 
         projectDiv.innerHTML = `
-            <label for="projectTitle">Project Title:</label>
-            <input type="text" name="projectTitle" placeholder="Project Title" required>
-            <label for="projectLink">Project Link:</label>
-            <input type="url" name="projectLink" placeholder="https://example.com" required>
+            <label for="projectTitle${index}">Project Title:</label>
+            <input id="projectTitle${index}" type="text" placeholder="Project Title">
+            <label for="projectDescription${index}">Project Description:</label>
+            <textarea id="projectDescription${index}" placeholder="Describe your project..."></textarea>
         `;
 
         projectsContainer.appendChild(projectDiv);
     }
-
 
     // Function to add new experience fields
     function addExperienceFields() {
         const experienceContainer = document.getElementById('experienceContainer');
 
         const experienceDiv = document.createElement('div');
-        experienceDiv.classList.add('experience-input');
+        experienceDiv.classList.add('experience');
+        const index = experienceContainer.children.length; // Get the index of new experience
 
         experienceDiv.innerHTML = `
-            <label for="companyName">Company Name:</label>
-            <input type="text" name="companyName" placeholder="Company Name" required>
-            <label for="yearsExperience">Years of Experience:</label>
-            <input type="number" name="yearsExperience" placeholder="Years" min="0" required>
-            <label for="experienceDescription">Description:</label>
-            <textarea name="experienceDescription" placeholder="Describe your role..." maxlength="50"></textarea>
+            <label for="company${index}">Company:</label>
+            <input id="company${index}" type="text" placeholder="Company Name">
+            <label for="role${index}">Role:</label>
+            <input id="role${index}" type="text" placeholder="Your Role">
+            <label for="duration${index}">Duration:</label>
+            <input id="duration${index}" type="text" placeholder="Duration (e.g., 2 years)">
         `;
 
         experienceContainer.appendChild(experienceDiv);
     }
 
     // Form submission event handler
-    document.getElementById('freelance_bioDataForm').addEventListener('submit', function(event) {
+    document.getElementById('freelancer_bioDataForm').addEventListener('submit', function(event) {
         // Validate Aadhaar, Phone Number, and additional fields
         if (!ValidateAadhaar() || !validatePhoneNumber() || !validateAdditionalFields()) {
             event.preventDefault(); // Prevent form submission if validation fails
