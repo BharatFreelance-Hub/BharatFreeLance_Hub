@@ -124,7 +124,6 @@ onAuthStateChanged(auth, (user) => {
     fetchUserJobs(user);
   } else {
     // User is signed out, clear job listings
-    const jobListingSection = document.querySelector(".job-listings-section");
-    jobListingSection.innerHTML = '<h2>Post a Job</h2>';
+    document.querySelector(".job-listings-section").innerHTML = '<h2>Post a Job</h2>';
   }
 });
