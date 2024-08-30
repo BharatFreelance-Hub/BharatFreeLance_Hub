@@ -7,7 +7,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyChL4PXmR5RHmNnlVc6PiocbEsq3ygpD3E",
   authDomain: "bharatfreelance-hub-538c2.firebaseapp.com",
   projectId: "bharatfreelance-hub-538c2",
-  storageBucket: "bharatfreelance-hub-538c2",
+  storageBucket: "bharatfreelance-hub-538c2.appspot.com",
   messagingSenderId: "297970426246",
   appId: "1:297970426246:web:fc266f818611f1c14a8c07"
 };
@@ -126,21 +126,11 @@ async function fetchFreelancersApplied(jobId) {
     }
     console.log(`Job found: ${jobSnap.id}`);
 
-    const jobData = jobSnap.data();
-
-    // Fetch and display client details
-    const clientId = jobData.postedBy; 
+    const clientId = jobSnap.data().postedBy; 
     if (clientId) {
       fetchClientDetails(clientId);
     } else {
       console.error("Client ID not found in job document");
-    }
-
-    // Update the job description
-    if (jobData.description) {
-      document.getElementById('descriptionCollapse').querySelector('.accordion-body').textContent = jobData.description;
-    } else {
-      document.getElementById('descriptionCollapse').querySelector('.accordion-body').textContent = 'No description available for this job.';
     }
 
     const applicationsRef = collection(db, "jobs", jobId, "applications");
