@@ -7,7 +7,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyChL4PXmR5RHmNnlVc6PiocbEsq3ygpD3E",
   authDomain: "bharatfreelance-hub-538c2.firebaseapp.com",
   projectId: "bharatfreelance-hub-538c2",
-  storageBucket: "bharatfreelance-hub-538c2",
+  storageBucket: "bharatfreelance-hub-538c2.appspot.com",
   messagingSenderId: "297970426246",
   appId: "1:297970426246:web:fc266f818611f1c14a8c07"
 };
@@ -30,7 +30,7 @@ async function populatePortfolio(user) {
     document.querySelector('.freelancer-banner h1').textContent = `${data.firstName} ${data.lastName}`;
 
     // Populate Freelancer Details
-    document.querySelector('.text-center.text-orange').textContent = data.designation;
+    document.querySelector('#freelancer-full-name').textContent = `${data.firstName} ${data.lastName}`;
     document.querySelector('.text-center.text-muted').textContent = data.designation;
     document.querySelector('.list-group-item.bg-orange-light:nth-of-type(1) strong').nextSibling.textContent = data.skills;
     document.querySelector('.list-group-item.bg-orange-light:nth-of-type(2) p').textContent = data.aboutMe;
