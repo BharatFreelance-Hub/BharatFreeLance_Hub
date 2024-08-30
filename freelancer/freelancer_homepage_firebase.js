@@ -1,5 +1,6 @@
+// Import necessary Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
 // Firebase configuration
@@ -17,37 +18,20 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// Function to fetch job posts from Firestore
-async function fetchJobPosts() {
-  const jobListingSection = document.querySelector(".job-listings-section");
-
-  try {
-    // Reference to the 'jobs' collection in Firestore
-    const querySnapshot = await getDocs(collection(db, "jobs"));
-
-    // Loop through each document in the collection and display job posts
-    querySnapshot.forEach((doc) => {
-      const jobData = doc.data();
-      addJobToPage(jobData);
-    });
-  } catch (error) {
-    console.error("Error fetching job posts: ", error.message);
-  }
-}
-
 // Function to dynamically add a job posting to the page
-function addJobToPage(jobData) {
+function addJobToPage(jobData, jobId) {
   const jobListingSection = document.querySelector(".job-listings-section");
 
-  // Create a new job listing element
+  const applied = jobData.applied || false;
+  const approved = jobData.approved || false;
+
   const newJobListing = document.createElement("div");
   newJobListing.className = "job-listing";
   newJobListing.setAttribute("data-type", jobData.projectType);
   newJobListing.setAttribute("data-listing", jobData.listingType);
-  newJobListing.setAttribute("data-skills", jobData.skills.toLowerCase());
-  newJobListing.setAttribute("data-language", jobData.language.toLowerCase());
+  newJobListing.setAttribute("data-applied", applied);
+  newJobListing.setAttribute("data-approved", approved);
 
-  // Add content to the job listing
   newJobListing.innerHTML = `
     <h3>${jobData.jobTitle}</h3>
     <p><strong>Project Type:</strong> ${jobData.projectType.replace("-", " ")}</p>
@@ -55,42 +39,89 @@ function addJobToPage(jobData) {
     <p><strong>Listing Type:</strong> ${jobData.listingType.replace("-", " ")}</p>
     <p><strong>Language:</strong> ${jobData.language}</p>
     <p>${jobData.description}</p>
-    <a href="../freelance_client_both/both.html" class="btn btn-primary">Apply Now</a>
+    <a href="#" class="btn btn-primary apply-btn" ${applied ? 'data-applied="true" disabled' : ''}>${applied ? 'Applied' : 'Apply Now'}</a>
   `;
 
-  // Append the new job listing to the section
   jobListingSection.appendChild(newJobListing);
 
-  // Add Apply Now button functionality
-  const applyButton = newJobListing.querySelector(".btn-primary");
-  applyButton.addEventListener("click", () => {
-    if (applyButton.dataset.applied === "true") {
-      return;
-    }
+  const applyButton = newJobListing.querySelector(".apply-btn");
+  
+  if (!applied) {
+    // Initial event listener for "Apply Now"
+    applyButton.addEventListener("click", async () => {
+      try {
+        const user = auth.currentUser;
+        if (!user) {
+          console.error("No user is logged in.");
+          return;
+        }
 
-    // Create the alert element
-    const alertDiv = document.createElement("div");
-    alertDiv.className = "alert alert-success mt-3";
-    alertDiv.role = "alert";
-    alertDiv.innerText = "Successfully applied";
+        // Update the sub-collection "applications" under the job document
+        const applicationData = {
+          freelancerId: user.uid,
+          appliedAt: new Date(),
+          status: "applied" // Optionally, manage status
+        };
 
-    // Append the alert to the job listing
-    newJobListing.appendChild(alertDiv);
+        // Add the freelancer application to the "applications" sub-collection of the job
+        await setDoc(doc(db, "jobs", jobId, "applications", user.uid), applicationData);
 
-    // Mark as applied
-    applyButton.dataset.applied = "true";
-    applyButton.textContent = "Applied";
-    applyButton.disabled = true;
-  });
+        // Update button to "See Details"
+        applyButton.dataset.applied = "true";
+        applyButton.textContent = "See Details";
+        applyButton.classList.remove("btn-primary");
+        applyButton.classList.add("btn-secondary");
+        applyButton.disabled = false; // Ensure it's enabled
+
+        // Show success message
+        const alertDiv = document.createElement("div");
+        alertDiv.className = "alert alert-success mt-3";
+        alertDiv.role = "alert";
+        alertDiv.innerText = "Successfully applied";
+        newJobListing.appendChild(alertDiv);
+
+        // Remove existing event listeners to prevent multiple bindings
+        const newApplyButton = applyButton.cloneNode(true);
+        applyButton.parentNode.replaceChild(newApplyButton, applyButton);
+
+        // Add new event listener for "See Details"
+        newApplyButton.addEventListener("click", () => {
+          window.location.href = `../freelance_client_both/both.html?id=${jobId}`;
+        });
+
+      } catch (error) {
+        console.error("Error applying to job: ", error.message);
+      }
+    });
+  } else {
+    // If already applied, set up the "See Details" functionality
+    applyButton.addEventListener("click", () => {
+      window.location.href = `../freelance_client_both/both.html?id=${jobId}`;
+    });
+  }
 }
 
-// Ensure user is authenticated before fetching job posts
+// Fetch and display jobs posted by the logged-in user
+async function fetchJobPosts() {
+  const jobListingSection = document.querySelector(".job-listings-section");
+  jobListingSection.innerHTML = ''; // Clear existing listings if any
+  try {
+    const querySnapshot = await getDocs(collection(db, "jobs"));
+    querySnapshot.forEach((doc) => {
+      const jobData = doc.data();
+      addJobToPage(jobData, doc.id);
+    });
+  } catch (error) {
+    console.error("Error fetching job posts: ", error.message);
+  }
+}
+
+// Monitor auth state and fetch jobs when the user logs in
 onAuthStateChanged(auth, (user) => {
   if (user) {
     fetchJobPosts();
   } else {
     console.log("User is not authenticated");
-    // Redirect to login page if not authenticated
     window.location.href = "./freelancer_sign.html";
   }
 });

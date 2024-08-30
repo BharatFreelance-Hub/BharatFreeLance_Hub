@@ -4,13 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BharatFreeLance Hub</title>
-  <link
-    rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-  />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
   <link rel="stylesheet" href="./style_client_homepage.css" />
   <style>
-    /* Floating button */
     .floating-button {
       position: fixed;
       bottom: 20px;
@@ -31,59 +27,43 @@
   </style>
 </head>
 <body>
-  <!-- Nav bar -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-orange">
     <a class="navbar-brand" href="#">BharatFreeLance Hub</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="./client_homepage.html"
-            >Home <span class="sr-only">(current)</span></a
-          >
+          <a class="nav-link" href="./client_homepage.html">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#postjob">Post a Job</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#about">aboutUs</a>
+          <a class="nav-link" href="#about">About Us</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./client_Sign.html">LogOut</a>
+          <a class="nav-link" href="./client_Sign.html">Log Out</a>
         </li>
       </ul>
     </div>
   </nav>
 
-  <!-- Banner Section -->
   <div class="banner">
     <h1>Welcome to BharatFreeLance Hub</h1>
     <p>Find your next project or hire the perfect freelancer.</p>
   </div>
 
   <div class="container-fluid">
-    <!-- Job Listings Section -->
     <div class="job-listings-section" id="postjob">
       <h2>Post a Job</h2>
+      <!-- Jobs will be dynamically inserted here -->
     </div>
   </div>
 
-  <!-- Floating Button -->
-  <div class="floating-button" data-toggle="modal" data-target="#addJobModal">
-    +
-  </div>
+  <div class="floating-button" data-toggle="modal" data-target="#addJobModal">+</div>
 
-  <!-- Modal -->
   <div class="modal fade" id="addJobModal" tabindex="-1" role="dialog" aria-labelledby="addJobModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -137,7 +117,6 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
     <div class="container text-center">
       <p>&copy; 2023 BharatFreeLance Hub. All rights reserved.</p>
@@ -146,7 +125,7 @@
   </footer>
 
   <!-- Firebase and JavaScript -->
-   <script type="module" src="./client_homepage_firebase.js"></script>
+  <script type="module" src="./client_homepage_firebase.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

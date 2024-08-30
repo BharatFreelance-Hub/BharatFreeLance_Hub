@@ -1,4 +1,3 @@
-// Import necessary Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
 import { getFirestore, doc, setDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
@@ -18,14 +17,11 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// Reference to the job form element
-const jobForm = document.getElementById('jobForm');
-
 // Handle form submission for job posting
+const jobForm = document.getElementById('jobForm');
 jobForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  // Collect form data
   const jobTitle = document.getElementById('jobTitle').value.trim();
   const projectType = document.getElementById('projectType').value.trim();
   const skills = document.getElementById('skills').value.trim();
@@ -33,14 +29,12 @@ jobForm.addEventListener('submit', async (e) => {
   const language = document.getElementById('Language').value.trim();
   const description = document.getElementById('description').value.trim();
 
-  // Ensure the user is authenticated
   const user = auth.currentUser;
   if (!user) {
     alert('You must be signed in to post a job.');
     return;
   }
 
-  // Data to save in Firestore
   const jobData = {
     jobTitle,
     projectType,
@@ -48,20 +42,17 @@ jobForm.addEventListener('submit', async (e) => {
     listingType,
     language,
     description,
-    postedBy: user.uid, // Store the user ID of the client who posted the job
-    createdAt: new Date() // Add a timestamp for when the job was posted
+    postedBy: user.uid,
+    createdAt: new Date()
   };
 
   try {
-    // Corrected: Use backticks for template literal
     const docId = `${user.uid}_${Date.now()}`;
     await setDoc(doc(db, "jobs", docId), jobData);
     alert('Job posted successfully');
 
-    // Optionally, add the job to the page dynamically
-    addJobToPage(jobData);
+    addJobToPage(jobData, docId);
 
-    // Close modal and reset form after successful save
     $('#addJobModal').modal('hide');
     jobForm.reset();
   } catch (error) {
@@ -73,57 +64,49 @@ jobForm.addEventListener('submit', async (e) => {
 // Fetch and display jobs posted by the logged-in user
 const fetchUserJobs = async (user) => {
   try {
-    // Query to get jobs where postedBy is equal to the current user's UID
     const jobsRef = collection(db, "jobs");
     const q = query(jobsRef, where("postedBy", "==", user.uid));
     const querySnapshot = await getDocs(q);
 
-    // Clear current job listings
     const jobListingSection = document.querySelector(".job-listings-section");
-    jobListingSection.innerHTML = ''; // Reset to clear all content
+    jobListingSection.innerHTML = '';
 
-    // Add heading back after clearing
     const heading = document.createElement('h2');
     heading.textContent = 'Post a Job';
     jobListingSection.appendChild(heading);
 
-    // Add each job to the page
     querySnapshot.forEach((doc) => {
       const jobData = doc.data();
-      addJobToPage(jobData);
+      addJobToPage(jobData, doc.id);
     });
-
   } catch (error) {
     console.error("Error fetching jobs: ", error);
     alert("Failed to fetch jobs. Please try again later.");
   }
 };
 
-// Function to add a job posting to the page dynamically
-function addJobToPage(jobData) {
+function addJobToPage(jobData, jobId) {
   const jobListingSection = document.querySelector(".job-listings-section");
-  const newJobListing = `
-    <div class="job-listing" data-type="${jobData.projectType}" data-listing="${jobData.listingType}">
-      <h3>${jobData.jobTitle}</h3>
-      <p><strong>Project Type:</strong> ${jobData.projectType.replace("-", " ")}</p>
-      <p><strong>Skills:</strong> ${jobData.skills}</p>
-      <p><strong>Listing Type:</strong> ${jobData.listingType.replace("-", " ")}</p>
-      <p><strong>Language:</strong> ${jobData.language}</p>
-      <p>${jobData.description}</p>
-      <a href="../freelance_client_both/both.html" class="btn btn-primary">See Details</a>
-    </div>
+  const newJobListing = document.createElement("div");
+  newJobListing.className = "job-listing";
+  newJobListing.innerHTML = `
+    <h3>${jobData.jobTitle}</h3>
+    <p><strong>Project Type:</strong> ${jobData.projectType.replace("-", " ")}</p>
+    <p><strong>Skills:</strong> ${jobData.skills}</p>
+    <p><strong>Listing Type:</strong> ${jobData.listingType.replace("-", " ")}</p>
+    <p><strong>Language:</strong> ${jobData.language}</p>
+    <p>${jobData.description}</p>
+    <a href="../freelance_client_both/both copy.html?id=${jobId}" class="btn btn-primary">See Details</a>
   `;
-
-  jobListingSection.innerHTML += newJobListing;
+  jobListingSection.appendChild(newJobListing);
 }
+
 
 // Monitor auth state and fetch jobs when the user logs in
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // User is signed in, fetch their jobs
     fetchUserJobs(user);
   } else {
-    // User is signed out, clear job listings
     document.querySelector(".job-listings-section").innerHTML = '<h2>Post a Job</h2>';
   }
 });
