@@ -1,7 +1,7 @@
 // Import necessary Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -53,7 +53,7 @@ jobForm.addEventListener('submit', async (e) => {
   };
 
   try {
-    // Save the job posting data to the 'jobs' collection with a unique ID
+    // Corrected: Use backticks for template literal
     const docId = `${user.uid}_${Date.now()}`;
     await setDoc(doc(db, "jobs", docId), jobData);
     alert('Job posted successfully');
@@ -69,6 +69,35 @@ jobForm.addEventListener('submit', async (e) => {
     alert("Failed to post job. Please try again.");
   }
 });
+
+// Fetch and display jobs posted by the logged-in user
+const fetchUserJobs = async (user) => {
+  try {
+    // Query to get jobs where postedBy is equal to the current user's UID
+    const jobsRef = collection(db, "jobs");
+    const q = query(jobsRef, where("postedBy", "==", user.uid));
+    const querySnapshot = await getDocs(q);
+
+    // Clear current job listings
+    const jobListingSection = document.querySelector(".job-listings-section");
+    jobListingSection.innerHTML = ''; // Reset to clear all content
+
+    // Add heading back after clearing
+    const heading = document.createElement('h2');
+    heading.textContent = 'Post a Job';
+    jobListingSection.appendChild(heading);
+
+    // Add each job to the page
+    querySnapshot.forEach((doc) => {
+      const jobData = doc.data();
+      addJobToPage(jobData);
+    });
+
+  } catch (error) {
+    console.error("Error fetching jobs: ", error);
+    alert("Failed to fetch jobs. Please try again later.");
+  }
+};
 
 // Function to add a job posting to the page dynamically
 function addJobToPage(jobData) {
@@ -87,3 +116,15 @@ function addJobToPage(jobData) {
 
   jobListingSection.innerHTML += newJobListing;
 }
+
+// Monitor auth state and fetch jobs when the user logs in
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, fetch their jobs
+    fetchUserJobs(user);
+  } else {
+    // User is signed out, clear job listings
+    const jobListingSection = document.querySelector(".job-listings-section");
+    jobListingSection.innerHTML = '<h2>Post a Job</h2>';
+  }
+});
