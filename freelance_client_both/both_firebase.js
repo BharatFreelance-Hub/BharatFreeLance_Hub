@@ -177,14 +177,19 @@ function renderFreelancerCard(freelancerData, freelancerId, jobId) {
 
   // Create the card element
   const card = document.createElement('div');
-  card.className = 'col-md-6 mb-4';
-
-  const innerCard = document.createElement('div');
-  innerCard.className = 'card h-100';
+  card.className = 'card mb-4';
 
   // Card body
   const cardBody = document.createElement('div');
   cardBody.className = 'card-body text-center';
+
+  // Freelancer image
+  const freelancerImage = document.createElement('img');
+  freelancerImage.className = 'img-fluid rounded-circle mb-3';
+  freelancerImage.style.width = '100px';
+  freelancerImage.style.height = '100px';
+  freelancerImage.src = freelancerData.profileImageUrl || '../img/freelancer.png'; // Default image if none provided
+  freelancerImage.alt = freelancerData.name || 'Freelancer Photo';
 
   // Freelancer name
   const freelancerName = document.createElement('h5');
@@ -196,42 +201,30 @@ function renderFreelancerCard(freelancerData, freelancerId, jobId) {
   freelancerSkills.className = 'card-text';
   freelancerSkills.textContent = `Skills: ${freelancerData.skills || 'Skills not provided'}`;
 
-  // Freelancer rating (example)
-  const freelancerRating = document.createElement('p');
-  freelancerRating.className = 'card-text';
-  freelancerRating.textContent = 'Rating: ★★★★☆'; // Placeholder rating
+//   // Freelancer bio
+//   const freelancerBio = document.createElement('p');
+//   freelancerBio.className = 'card-text';
+//   freelancerBio.textContent = `Bio: ${freelancerData.bio || 'Bio not provided'}`;
 
-  // Buttons
-  const buttonContainer = document.createElement('div');
-  buttonContainer.className = 'd-flex justify-content-center';
-
-  const portfolioButton = document.createElement('button');
-  portfolioButton.className = 'btn me-2';
-  portfolioButton.style.borderColor = '#ff5722';
-  portfolioButton.textContent = 'See Portfolio';
-
-  const hireButton = document.createElement('button');
-  hireButton.className = 'btn btn-success';
-  hireButton.textContent = 'Hire';
-
-  buttonContainer.appendChild(portfolioButton);
-  buttonContainer.appendChild(hireButton);
+  // Freelancer email
+  const freelancerEmail = document.createElement('p');
+  freelancerEmail.className = 'card-text';
+  freelancerEmail.innerHTML = `<strong>Email:</strong> ${freelancerData.email || 'freelancer@example.com'}`;
 
   // Append elements to the card body
+//   cardBody.appendChild(freelancerImage);
   cardBody.appendChild(freelancerName);
   cardBody.appendChild(freelancerSkills);
-  cardBody.appendChild(freelancerRating);
-  cardBody.appendChild(buttonContainer);
+//   cardBody.appendChild(freelancerBio);
+  cardBody.appendChild(freelancerEmail);
 
-  // Append card body to inner card
-  innerCard.appendChild(cardBody);
-
-  // Append inner card to outer card
-  card.appendChild(innerCard);
+  // Append card body to card
+  card.appendChild(cardBody);
 
   // Append the card to the freelancer container
   freelancerContainer.appendChild(card);
 }
+
 
 // Fetch job details and freelancers on page load
 document.addEventListener('DOMContentLoaded', () => {

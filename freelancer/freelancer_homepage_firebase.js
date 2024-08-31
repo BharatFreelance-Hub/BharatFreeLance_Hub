@@ -22,7 +22,7 @@ const auth = getAuth(app);
 function addJobToPage(jobData, jobId) {
   const jobListingSection = document.querySelector(".job-listings-section");
 
-  const applied = jobData.applied || false;
+  const applied = localStorage.getItem(`job_${jobId}_applied`) === 'true'; // Check if the job was applied
   const approved = jobData.approved || false;
 
   const newJobListing = document.createElement("div");
@@ -39,7 +39,7 @@ function addJobToPage(jobData, jobId) {
     <p><strong>Listing Type:</strong> ${jobData.listingType.replace("-", " ")}</p>
     <p><strong>Language:</strong> ${jobData.language}</p>
     <p>${jobData.description}</p>
-    <a href="#" class="btn btn-primary apply-btn" ${applied ? 'data-applied="true" disabled' : ''}>${applied ? 'Applied' : 'Apply Now'}</a>
+    <a href="#" class="btn btn-primary apply-btn" ${applied ? 'data-applied="true" disabled' : ''}>${applied ? 'See Details' : 'Apply Now'}</a>
   `;
 
   jobListingSection.appendChild(newJobListing);
@@ -72,6 +72,9 @@ function addJobToPage(jobData, jobId) {
         applyButton.classList.remove("btn-primary");
         applyButton.classList.add("btn-secondary");
         applyButton.disabled = false; // Ensure it's enabled
+
+        // Persist application state in localStorage
+        localStorage.setItem(`job_${jobId}_applied`, 'true');
 
         // Show success message
         const alertDiv = document.createElement("div");
